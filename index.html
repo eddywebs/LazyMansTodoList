@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>ToDo List</title>
+<script type="text/javascript" src="js/jquery-1.11.0.js"></script>    
+<script type="text/javascript" src="js/todo.js"></script>
+</head>
+
+<body>
+<h1>Simple ToDo List</h1>
+<form action="#" method="post" id="todoForm">
+<div>
+    <label for"todo">To Do:</label>
+    <input type="text" name="todo" id="todo" size=60 required>
+ </div>
+<br/>
+ <input type="submit" value="submit" id="addTask">
+</form>
+<h2>Task List</h2>
+<div id="list">
+   <b>No tasks on your list.</b>
+</div>
+<br/>
+<form action="#" method="post" id="clearList">
+    <input type="submit" value="Clear List" id="clearList">
+</form>
+</body>
+</html>
