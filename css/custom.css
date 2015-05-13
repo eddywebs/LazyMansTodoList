@@ -47,6 +47,10 @@
         width: 320px;
       }
 
+      .taskText{
+        padding: 0px 6px 0px 6px;
+      }
+
       .password {
         text-align: center;
         font-size: 2rem;
@@ -67,7 +71,7 @@
         text-align: left;
         font-weight: bolder;
         /*line-height: 11px; */
-        padding: 0px 0px 10px 0px;
+        padding: 0px 10px 10px 0px;
         width: 80px;
         font-size: 30px;
 
