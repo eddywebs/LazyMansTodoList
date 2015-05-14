@@ -6,7 +6,7 @@
 var tasks=[];
 var task, todoList;
 //wait for dom to ready and execuite the main function
-$(document).ready(function (){
+$(document).ready(function(){
 
     $("#todoForm").submit(addTask);
     $("#clearList").submit(clearList);
@@ -14,8 +14,11 @@ $(document).ready(function (){
     
     if (localStorage.getItem("tasks")) {
         tasks=JSON.parse(localStorage.getItem("tasks"));
+        //filter and remove deleted tasks first
+        tasks = tasks.filter(function( obj ) {
+            return obj.deleted != true;
+        });
         todoList.innerHTML=writeTaskList(tasks);
-        //checkTasks(tasks);
     }
     
     //set autofocus on input box
@@ -26,7 +29,6 @@ $(document).ready(function (){
     $(".deleteBtn").deleteTasks();
     console.log(tasks);
 });
-
 
 $.fn.updateStatus=function(list){
 // A jQuery plugin is responsible for updating and saving the tasks on clicks
@@ -74,10 +76,12 @@ $.fn.deleteTasks=function(list){
     return this.click(function(evt){
         console.log(this);
         var id =parseInt($(this).parent().attr("id"));
-        $(this).parent().remove() //delete the clicked element
-        deleteTask(id); //delete the task from the memory
+        $(this).parent().remove() //delete the clicked dom element
     });
-s
+        setDelete(id); //set the removed element's record as deleted on next load, 
+        //this because deleting the object array before a load mismathes the id of the elements remaminng in actual array 
+        //from the ids attached to each element in the dom causing errors 
+
 };//end of deleteTasks()
 
 function clearList(){
@@ -91,11 +95,13 @@ function todo(todo) {
 // @param todo - is a task as test teststing
     this.task=todo;
     this.accomplished=false;
+    this.deleted=false;
 };
 
 function addTask(){
 //This takes the value in the task input box and adds to an task object an array. it will then store that array to localStorage for retrieval   
     task = document.getElementById("todo").value;
+    //do basic validation first(for browsers which cannot interpret "required" attribute)
     if(task ==null || task.trim() ==""){
         alert("The task entered is blank, please enter a valid task.")
         return;
@@ -103,14 +109,10 @@ function addTask(){
     tasks.push(new todo(task));
     localStorage.setItem("tasks", JSON.stringify(tasks));
 };
-function deleteTask(id){
-//This function permanetly deletes task from the object array and saves it to localStorage.
-//@param id- id of the array object element(task) that needs to be deleted    
-    tasks.splice(id, 1);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
- //   todoList=document.getElementById("list");
-   // todoList.innerHTML=writeTaskList(tasks);
-
+function setDelete(id){
+//This function sets the delete property as true for the record of the given id
+//@param id- id of the array object element(task) that needs to be set for deleted    
+    tasks[id].deleted=true;
 };
 function writeTaskList(tasks){    
 //This function writes the task to dom as as table

@@ -43,6 +43,9 @@
       -------------------------------------------------- */
       /* Not required for template or sticky footer method. */
 
+      div#taskZone {
+  background-image: url(http://caroljean52c.tripod.com/NoteBacks/bkgTileGrid005.gif);
+}
       input, textarea, .uneditable-input {
         width: 320px;
       }
