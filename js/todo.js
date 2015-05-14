@@ -77,11 +77,10 @@ $.fn.deleteTasks=function(list){
         console.log(this);
         var id =parseInt($(this).parent().attr("id"));
         $(this).parent().remove() //delete the clicked dom element
+        setDelete(id); //set the task to be delete on next page loads, we do so because deleting elements from
+        //array before page load mistaches the array index associated with ids in the dom
     });
-        setDelete(id); //set the removed element's record as deleted on next load, 
-        //this because deleting the object array before a load mismathes the id of the elements remaminng in actual array 
-        //from the ids attached to each element in the dom causing errors 
-
+s
 };//end of deleteTasks()
 
 function clearList(){
@@ -101,7 +100,6 @@ function todo(todo) {
 function addTask(){
 //This takes the value in the task input box and adds to an task object an array. it will then store that array to localStorage for retrieval   
     task = document.getElementById("todo").value;
-    //do basic validation first(for browsers which cannot interpret "required" attribute)
     if(task ==null || task.trim() ==""){
         alert("The task entered is blank, please enter a valid task.")
         return;
@@ -110,9 +108,10 @@ function addTask(){
     localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 function setDelete(id){
-//This function sets the delete property as true for the record of the given id
-//@param id- id of the array object element(task) that needs to be set for deleted    
+//This function sets the delete property as true of the record in object array
+//@param id- id of the array object element(task) that needs to be set as deleted    
     tasks[id].deleted=true;
+
 };
 function writeTaskList(tasks){    
 //This function writes the task to dom as as table
