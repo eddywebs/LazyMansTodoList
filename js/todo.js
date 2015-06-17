@@ -77,8 +77,9 @@ $.fn.deleteTasks=function(list){
         console.log(this);
         var id =parseInt($(this).parent().attr("id"));
         $(this).parent().remove() //delete the clicked dom element
-        setDelete(id); //set the task to be delete on next page loads, we do so because deleting elements from
-        //array before page load mistaches the array index associated with ids in the dom
+        //setDelete(id); 
+        tasks[id].deleted=true;//set the task to be delete on next page loads, we do so because deleting elements from array before page load mistaches the array index associated with ids in the dom
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 s
 };//end of deleteTasks()
@@ -107,12 +108,7 @@ function addTask(){
     tasks.push(new todo(task));
     localStorage.setItem("tasks", JSON.stringify(tasks));
 };
-function setDelete(id){
-//This function sets the delete property as true of the record in object array
-//@param id- id of the array object element(task) that needs to be set as deleted    
-    tasks[id].deleted=true;
 
-};
 function writeTaskList(tasks){    
 //This function writes the task to dom as as table
 //@param - task object to populate the dom accordingly   
